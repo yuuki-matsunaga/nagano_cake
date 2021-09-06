@@ -1,0 +1,26 @@
+<div class="container">
+  <div class="row">
+    <div class="mx-auto">
+      <h2>注文履歴一覧</h2>
+        <table class="table">
+          <thead>
+            <th>購入日時</th>
+            <th>購入者</th>
+            <th>注文個数</th>
+            <th>注文ステータス</th>
+          </head>
+          <% @orders.each do |order| %>
+          <tbody>
+            <td><%= link_to order.created_at.to_s(:datetime_jp),admin_order_path(order) %></td>
+            <td><%= order.customer.full_name %></td>
+            <td>
+              <%= order.order_details.all.sum (:amount) %>
+              </td>
+            <td><%= order.status_i18n %></td>
+          </tbody>
+          <% end %>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

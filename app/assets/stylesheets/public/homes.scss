@@ -1,0 +1,19 @@
+// Place all the styles related to the public/homes controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+.main-image {
+  background-image: image-url('Rails.png');
+  background-repeat:  no-repeat;
+  // background-position:center center;
+  background-size:contain;
+  width: 360px;
+  height: 360px;
+}
+.moji {
+ position:absolute;
+ top: 42%;
+ color: #fff;
+ background: rgba(0,0,0,0.5);
+ width: 360px;
+ text-align:left;
+}

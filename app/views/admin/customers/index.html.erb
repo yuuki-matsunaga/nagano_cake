@@ -1,0 +1,30 @@
+<div class="container">
+  <div class="row">
+    <div class="mx-auto">
+      <h2>会員一覧</h2>
+        <table class="table">
+          <thead>
+            <th>会員ID</th>
+            <th>氏名</th>
+            <th>メールアドレス</th>
+            <th>ステータス</th>
+          </head>
+          <% @customers.each do |customer| %>
+          <tbody>
+            <td><%= customer.id %></td>
+            <td><%= link_to customer.full_name, admin_customer_path(customer.id) %></td>
+            <td><%= customer.email %></td>
+            <% if customer.is_active? %>
+            <td class="text-success">有効</td>
+            <% else %>
+            <td>
+              退会
+            </td>
+            <% end %>
+          </tbody>
+          <% end %>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

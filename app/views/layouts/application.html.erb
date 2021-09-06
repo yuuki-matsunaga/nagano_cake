@@ -1,6 +1,10 @@
 <!DOCTYPE html>
-<html>
+<html lang="ja">
   <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+
     <title>NaganoCake</title>
     <%= csrf_meta_tags %>
 
@@ -9,6 +13,46 @@
   </head>
 
   <body>
+    <header class="col-12">
+      <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <%= link_to "ながのケーキLOGO", root_path, class:"navbar-brand col-3" %>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <% if customer_signed_in? %>
+        <h6 class="col-3">ようこそ<%= current_customer.last_name %>さん！</h6>
+        <div class="col-6">
+          <div class="collapse navbar-collapse " id="navbarNavAltMarkup">
+            <div class="navbar-nav ml-auto row">
+              <%= link_to "マイページ", customers_mypage_path,class: 'nav-item nav-link' %>
+              <%= link_to "商品一覧", items_path,class: "nav-item nav-link" %>
+              <%= link_to "カート", cart_items_path, class: "nav-item nav-link" %>
+              <%= link_to "ログアウト", destroy_customer_session_path, method: :delete,class: 'nav-item nav-link' %>
+            </div>
+          </div>
+          <% elsif admin_signed_in? %>
+          <div class="collapse navbar-collapse " id="navbarNavAltMarkup">
+            <div class="navbar-nav ml-auto row">
+              <%= link_to "商品一覧", admin_items_path,class: 'nav-item nav-link' %>
+              <%= link_to "会員一覧", admin_customers_path,class: 'nav-item nav-link' %>
+              <%= link_to "注文履歴一覧", admin_path(order_sort: 0),class: 'nav-item nav-link' %>
+              <%= link_to "ジャンル一覧", admin_genres_path,class: 'nav-item nav-link' %>
+              <%= link_to "ログアウト", destroy_admin_session_path, method: :delete,class: 'nav-item nav-link' %>
+            </div>
+          </div>
+          <% else %>
+          <div class="collapse navbar-collapse " id="navbarNavAltMarkup">
+            <div class="navbar-nav ml-auto row">
+              <%= link_to "About", about_path, class:'nav-item nav-link' %>
+              <%= link_to "商品一覧", items_path,class: "nav-item nav-link" %>
+              <%= link_to "新規登録", new_customer_registration_path, class:'nav-item nav-link' %>
+              <%= link_to "ログイン", new_customer_session_path, class:'nav-item nav-link' %>
+            </div>
+          </div>
+          <% end %>
+        </div>
+      </nav>
+    </header>
     <%= yield %>
   </body>
 </html>

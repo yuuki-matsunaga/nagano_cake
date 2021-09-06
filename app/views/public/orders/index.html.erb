@@ -1,0 +1,45 @@
+<div class="conteiner p-4">
+  <h4>注文履歴一覧</h4>
+  <div class="row p-4">
+    <div class="col">
+      <table class="table table-bordered  text-center">
+        <thead>
+          <tr>
+            <th>注文日</th>
+            <th>配送先</th>
+            <th>注文商品</th>
+            <th>支払い金額</th>
+            <th>ステータス</th>
+            <th>注文詳細</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @orders.each do |order| %>
+          <tr>
+            <td class="align-middle"><%= order.created_at.strftime('%Y/%m/%d') %></td>
+            <td class="text-left align-middle lh-1">〒<%= order.postal_code %><br><%= order.address %><br><%= order.delivery_name %></td>
+            <td class="align-middle">
+              <% order.order_details.each do |order_item| %>
+              <%= order_item.item.name %><br>
+              <% end %>
+            </td>
+
+            <td class="align-middle">
+              <% @total = 0 %>
+              <% order.order_details.each do |order_item| %>
+              <% @total += order_item.item.with_tax_price * order_item.amount %>
+              <% end %>
+              <% @total %>
+              <% @total_payment = 0 %>
+              <% @total_payment = @total + 800 %>
+              <%= @total_payment.to_s(:delimited) %>円
+            </td>
+            <td class="align-middle"><%= order.status_i18n %></td>
+            <td class="align-middle"><%= link_to "表示する", order_path(order), class: "btn btn-primary " %></td>
+          </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

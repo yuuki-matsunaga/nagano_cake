@@ -1,0 +1,61 @@
+<div class="container">
+  <div class="row">
+    <div class="col-10 mx-auto">
+      <h2><%= @customer.full_name %>さんの会員情報編集</h2>
+      <%= form_with model:@customer, url: admin_customer_path, local:true do |customer| %>
+      <div class="form-group">
+        <table class="table">
+          <tbody>
+            <tr>
+              <th scope="row">会員ID</th>
+              <td><%= @customer.id %></td>
+            </tr>
+            <tr>
+              <th scope="row">氏名</th>
+              <td>
+                <%= customer.text_field :last_name %> <%= customer.text_field :first_name %>
+              </td>
+            </tr>
+            <tr>
+              <th scope="row">フリガナ</th>
+              <td>
+                <%= customer.text_field :last_name_kana %> <%= customer.text_field :first_name_kana %>
+              </td>
+            </tr>
+            <tr>
+              <th scope="row">郵便番号</th>
+              <td><%= customer.text_field :postal_code %></td>
+            </tr>
+            <tr>
+              <th scope="row">住所</th>
+              <td><%= customer.text_field :address %></td>
+            </tr>
+            <tr>
+              <th scope="row">電話番号</th>
+              <td><%= customer.text_field :telephone_number %></td>
+            </tr>
+            <tr>
+              <th scope="row">メールアドレス</th>
+              <td><%= customer.text_field :email %></td>
+            </tr>
+            <tr>
+              <th scope="row"> 会員ステータス</th>
+              <td>
+                <%= customer.radio_button :is_active, true %>
+                <%= customer.label :is_active, '有効',value: true %>
+                <%= customer.radio_button :is_active, false %>
+                <%= customer.label :is_active, '退会',value: false %>
+              </td>
+            </tr>
+            <tr>
+              <th scope="row"></th>
+              <td><%= customer.submit "変更を保存", class:"btn btn-success col-6" %></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <% end %>
+    </div>
+  </div>
+</div>
+
